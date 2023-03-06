@@ -25,6 +25,18 @@ export class ProductsController {
         return products;
     }
 
+    @Get()
+    async getGoodProducts(){
+        const goodProducts = await this.productsService.getGoodProducts();
+        return goodProducts;
+    }
+
+    @Get()
+    async getBadProducts(){
+        const badProducts = await this.productsService.getBadProducts();
+        return badProducts;
+    }
+
     @Get(':id')
     getProduct(@Param('id') prodId: string,){
         return this.productsService.getSingleProduct(prodId);

@@ -29,6 +29,26 @@ export class ProductsService{
         return {id: product.id, subj: product.subj,  description: product.description, rate: product.rate, teacher: product.teacher, year: product.year};
     }
 
+    async getGoodProducts(){
+        const products = await this.productModel.find().exec();
+        products.map((prod)=> ({id: prod.id, subj: prod.subj, description: prod.description, rate: prod.rate, teacher: prod.teacher, year: prod.year}));
+        products.forEach (d => {
+            if(d.rate > 6){
+                return d;
+            }
+        })
+    }
+
+    async getBadProducts(){
+        const products = await this.productModel.find().exec();
+        products.map((prod)=> ({id: prod.id, subj: prod.subj, description: prod.description, rate: prod.rate, teacher: prod.teacher, year: prod.year}));
+        products.forEach (d => {
+            if(d.rate < 4){
+                return d;
+            }
+        })
+    }
+
     async updateProduct(productId: string, subj: string, desc: string, rate: number, teacher: string, year: string){
        const updateProduct = await this.findProduct(productId);
         if (subj) {
